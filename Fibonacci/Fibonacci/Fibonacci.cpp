@@ -3,12 +3,18 @@ using namespace std;
 
 int fibonacciRecursive(int n) {
     if (n < 2) return n;
-    cout << fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2) << " ";
     return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
 }
 
 int fibonacciIteration(int n) {
+    int a = 1, b = 1, c = 0;
 
+    for (int i = 0; i < n; i++) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return c;
 }
 
 int main()
@@ -20,7 +26,8 @@ int main()
         cin >> i;
 
         fibonacciRecursive(i);
-        cout << endl;
+
+        fibonacciIteration(i);
     }
 }
 
