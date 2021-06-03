@@ -22,6 +22,47 @@ int main()
 
 	cout << "Player2 placement phase" << endl;
 	ShipPlacement(P2Grid);
+
+	ClearPage();
+
+
+}
+
+void TakeTurns(string grid1[], string grid2[]) {
+	bool P1Turn = true;
+
+	while (true)
+	{
+		if (P1Turn) cout << "Player1 turn" << endl;
+		else cout << "Player2 turn" << endl;
+
+		cout << "Enter coordinates to shoot" << endl << "a-j:" << endl;
+		string letter;
+		cin >> letter;
+
+		cout << "0-9:" << endl;
+		int number;
+		cin >> number;
+
+		int gridCellNum = (number * 10) + CompareLetter(letter);
+		if (P1Turn)
+		{
+			if (grid2[gridCellNum] == "o")
+			{
+				cout << "HIT" << endl;
+				grid2[gridCellNum] = "x";
+			}
+			else cout << "MISS" << endl;
+		}
+		else {
+			if (grid1[gridCellNum] == "o")
+			{
+				cout << "HIT" << endl;
+				grid1[gridCellNum] = "x";
+			}
+			else cout << "MISS" << endl;
+		}
+	}
 }
 
 void ClearPage() {
