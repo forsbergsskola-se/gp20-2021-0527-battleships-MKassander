@@ -2,29 +2,69 @@ using namespace std;
 
 #include <iostream>
 
-
+void ShipPlacement(string grid[]);
+void ClearPage();
 void DisplayGrid(string grid[]);
+int CompareLetter(string letter);
 
 int main()
 {
-	string grid[100] = {};
-	fill(begin(grid), begin(grid) + 100, "x");
+	string P1Grid[100] = {};
+	fill(begin(P1Grid), begin(P1Grid) + 100, "?");
 
+	string P2Grid[100] = {};
+	fill(begin(P2Grid), begin(P2Grid) + 100, "?");
 
+	cout << "Player1 placement phase" << endl;
+	ShipPlacement(P1Grid);
 
-	while (true)
+	ClearPage();
+
+	cout << "Player2 placement phase" << endl;
+	ShipPlacement(P2Grid);
+}
+
+void ClearPage() {
+	for (int i = 0; i < 30; i++)
 	{
+		cout << endl;
+	}
+}
+
+void ShipPlacement(string grid[]) {
+	int ships = 5;
+	while (ships > 0)
+	{
+		cout << "Ships left: " << ships << endl;
+
 		DisplayGrid(grid);
 
-		cout << "Enter cell to place on:" << endl;
-		int i;
-		cin >> i;
+		cout << "Enter coordinates to place on" << endl << "a-j:" << endl;
+		string letter;
+		cin >> letter;
 
-		grid[i] = "O";
+		cout << "0-9:" << endl;
+		int number;
+		cin >> number;
 
-		cout << "Enter direction:" << endl;
-		cin >> i;
+		int gridCellNum = (number * 10) + CompareLetter(letter);
+		grid[gridCellNum] = "O";
+
+		--ships;
 	}
+}
+
+int CompareLetter(string letter) {
+	if (letter == "a") return 0;
+	else if (letter == "b") return 1;
+	else if (letter == "c") return 2;
+	else if (letter == "d") return 3;
+	else if (letter == "e") return 4;
+	else if (letter == "f") return 5;
+	else if (letter == "g") return 6;
+	else if (letter == "h") return 7;
+	else if (letter == "i") return 8;
+	else if (letter == "j") return 9;
 }
 
 void DisplayGrid(string grid[]) {
