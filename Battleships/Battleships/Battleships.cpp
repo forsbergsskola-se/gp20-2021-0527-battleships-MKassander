@@ -113,10 +113,18 @@ void ShipPlacement(string grid[]) {
 	{
 		cout << "Ships left: " << ships << endl;
 
+		while (true)
+		{
+			int gridCellNum = GetCoordinates();
+			if (grid[gridCellNum] == "?")
+			{
+				grid[gridCellNum] = "O";
+				break;
+			}
+		}
 		cout << "Enter coordinates to place on" << endl;
 
-		int gridCellNum = GetCoordinates();
-		grid[gridCellNum] = "O";
+		
 
 		DisplayGrid(grid, true);
 
