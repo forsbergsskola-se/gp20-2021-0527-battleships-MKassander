@@ -45,24 +45,20 @@ void TakeTurns(string grid1[], string grid2[]) {
 		cin >> number;
 
 		int gridCellNum = (number * 10) + CompareLetter(letter);
-		if (P1Turn)
-		{
-			if (grid2[gridCellNum] == "o")
-			{
-				cout << "HIT" << endl;
-				grid2[gridCellNum] = "x";
-			}
-			else cout << "MISS" << endl;
-		}
-		else {
-			if (grid1[gridCellNum] == "o")
-			{
-				cout << "HIT" << endl;
-				grid1[gridCellNum] = "x";
-			}
-			else cout << "MISS" << endl;
-		}
+
+		if (P1Turn) Shoot(grid2, gridCellNum);
+		else Shoot(grid1, gridCellNum);
+		//kolla skepp kvar & om ^ funkar
 	}
+}
+
+void Shoot(string grid[], int cellNum) {
+	if (grid[cellNum] == "o")
+	{
+		cout << "HIT" << endl;
+		grid[cellNum] = "x";
+	}
+	else cout << "MISS" << endl;
 }
 
 void ClearPage() {
