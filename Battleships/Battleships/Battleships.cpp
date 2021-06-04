@@ -8,6 +8,7 @@ void DisplayGrid(string grid[]);
 int CompareLetter(string letter);
 int Shoot(string grid[], int cellNum);
 void TakeTurns(string grid1[], string grid2[]);
+int GetCoordinates();
 
 int main()
 {
@@ -41,19 +42,12 @@ void TakeTurns(string grid1[], string grid2[]) {
 		else cout << "Player2 turn" << endl;
 
 		cout << "Enter coordinates to shoot" << endl << "a-j:" << endl;
-		string letter;
-		cin >> letter;
-
-		cout << "0-9:" << endl;
-		int number;
-		cin >> number;
-
-		int gridCellNum = (number * 10) + CompareLetter(letter);
+		int gridCellNum = GetCoordinates();
 
 		if (P1Turn) P2Ships -= Shoot(grid2, gridCellNum);
 		else P1Ships -= Shoot(grid1, gridCellNum);
 
-		cout << "P1 ships left: " << P1Ships << endl << "P2 ships left: " << P2Ships << endl;
+		cout << "P1 ships left: " << P1Ships << endl << "P2 ships left: " << P2Ships << endl << endl;
 
 		if (P1Ships == 0)
 		{
@@ -67,11 +61,19 @@ void TakeTurns(string grid1[], string grid2[]) {
 		}
 
 		P1Turn = !P1Turn;
-		//kolla skepp kvar & om ^ funkar
-		//bryt loop
 		//method för koordinater
 		//grid att visa motståndare
 	}
+}
+
+int GetCoordinates() {
+	string letter;
+	cin >> letter;
+
+	cout << "0-9:" << endl;
+	int number;
+	cin >> number;
+	return (number * 10) + CompareLetter(letter);
 }
 
 int Shoot(string grid[], int cellNum) {
@@ -104,14 +106,8 @@ void ShipPlacement(string grid[]) {
 		DisplayGrid(grid);
 
 		cout << "Enter coordinates to place on" << endl << "a-j:" << endl;
-		string letter;
-		cin >> letter;
 
-		cout << "0-9:" << endl;
-		int number;
-		cin >> number;
-
-		int gridCellNum = (number * 10) + CompareLetter(letter);
+		int gridCellNum = GetCoordinates();
 		grid[gridCellNum] = "O";
 
 		--ships;
