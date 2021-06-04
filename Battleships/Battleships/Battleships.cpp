@@ -4,7 +4,7 @@ using namespace std;
 
 void ShipPlacement(string grid[]);
 void ClearPage();
-void DisplayGrid(string grid[]);
+void DisplayGrid(string grid[], bool showShips);
 int CompareLetter(string letter);
 int Shoot(string grid[], int cellNum);
 void TakeTurns(string grid1[], string grid2[]);
@@ -38,10 +38,16 @@ void TakeTurns(string grid1[], string grid2[]) {
 
 	while (true)
 	{
-		if (P1Turn) cout << "Player1 turn" << endl;
-		else cout << "Player2 turn" << endl;
+		if (P1Turn) {
+			cout << "Player1 turn" << endl;
+			DisplayGrid(grid2, false);
+		} 
+		else {
+			cout << "Player2 turn" << endl;
+			DisplayGrid(grid1, false);
+		}
 
-		cout << "Enter coordinates to shoot" << endl << "a-j:" << endl;
+		cout << "Enter coordinates to shoot" << endl;
 		int gridCellNum = GetCoordinates();
 
 		if (P1Turn) P2Ships -= Shoot(grid2, gridCellNum);
@@ -61,12 +67,11 @@ void TakeTurns(string grid1[], string grid2[]) {
 		}
 
 		P1Turn = !P1Turn;
-		//method för koordinater
-		//grid att visa motståndare
 	}
 }
 
 int GetCoordinates() {
+	cout << "a-j:" << endl;
 	string letter;
 	cin >> letter;
 
@@ -81,11 +86,14 @@ int Shoot(string grid[], int cellNum) {
 	{
 		cout << "HIT" << endl;
 		grid[cellNum] = "X";
+		DisplayGrid(grid, false);
 		return 1;
 	}
 	else {
 		cout << "MISS" << endl;
+		if (grid[cellNum] == "X") cout << "You allready shot and hit this coordinate" << endl;
 		grid[cellNum] = "M";
+		DisplayGrid(grid, false);
 		return 0;
 	}
 }
@@ -99,16 +107,18 @@ void ClearPage() {
 
 void ShipPlacement(string grid[]) {
 	int ships = 5;
+	DisplayGrid(grid, true);
+
 	while (ships > 0)
 	{
 		cout << "Ships left: " << ships << endl;
 
-		DisplayGrid(grid);
-
-		cout << "Enter coordinates to place on" << endl << "a-j:" << endl;
+		cout << "Enter coordinates to place on" << endl;
 
 		int gridCellNum = GetCoordinates();
 		grid[gridCellNum] = "O";
+
+		DisplayGrid(grid, true);
 
 		--ships;
 	}
@@ -127,7 +137,7 @@ int CompareLetter(string letter) {
 	else if (letter == "j") return 9;
 }
 
-void DisplayGrid(string grid[]) {
+void DisplayGrid(string grid[], bool showShips) {
 	cout << endl;
 	int row = 0;
 	int rowNumber = 0;
@@ -135,7 +145,8 @@ void DisplayGrid(string grid[]) {
 	cout << rowNumber << " ";
 	for (int i = 0; i < 100; i++)
 	{
-		cout << grid[i] << " ";
+		if (!showShips && grid[i] == "O") cout << "? ";
+		else cout << grid[i] << " ";
 		++row;
 		if (row == 10)
 		{
